@@ -1,0 +1,11 @@
+﻿<MudContainer MaxWidth="MaxWidth">
+<MudAlert Severity="Severity.Info">@Title</MudAlert>
+    @if (DisplayBarcodeBox)
+    {
+        <CornerOnlyContainer Class="scan-effect my-4">
+            <MudImage Width=200 Src="@Src"></MudImage>
+        </CornerOnlyContainer>
+    }
+    <CustomBarcodeScanner OnCloseClick="(() => DisplayBarcodeBox = !DisplayBarcodeBox)"
+        OnScanClick="(() => DisplayBarcodeBox = !DisplayBarcodeBox)" OnScanResult="HandleScanResult" Title=@InputTitle />
+</MudContainer>

@@ -1,0 +1,48 @@
+﻿<style>
+    .modal {
+        position: relative !important;
+        display: flex !important;
+        justify-content: center;
+    }
+
+    .modal-dialog{
+        margin: 0 !important;
+    }
+
+    .modal-content{
+        border: 0 !important;
+    }
+
+    #video {
+    max-width: 450px !important;
+    }
+</style>
+    @if (ShowScanBarcode)
+    {
+        if (CameraError)
+        {
+            <MudAlert Severity="Severity.Error">@ErrorMessage</MudAlert>
+        }
+        <MudContainer Class="d-flex justify-center" Style="max-width: 450px">
+        <BarcodeReader @ref=Reader ScanResult="ScanResult" OnError="GetError"
+                       Close="(()=>ShowScanBarcode=!ShowScanBarcode)"
+                       ScanBtnTitle="Escanear"
+                       ResetBtnTitle="Resetear"
+                       CloseBtnTitle="Cerrar"
+                       DecodeAllFormats=true
+                       SelectDeviceBtnTitle="Camara seleccionada" />
+        </MudContainer>
+    }
+    <MudContainer Class=@($"d-flex justify-center gap-4 p-0 {Class}")>
+        @if (!ShowScanBarcode)
+        {
+            <MudContainer Class="d-flex flex-wrap justify-between p-0">
+                <MudButton Class="flex-grow-1 mx-2 my-1" Variant="Variant.Filled" IconSize="Size.Small" Size="Size.Small" Color="Color.Secondary" StartIcon="fa-solid fa-grip" @onclick="ShowManualInputDialog">Ingresar manualmente</MudButton>
+                <MudButton Class="flex-grow-1 mx-2 my-1" Variant="Variant.Filled" IconSize="Size.Small" Size="Size.Small" Color="Color.Success" StartIcon="fa-solid fa-mobile-screen" @onclick="HandleButtonClick">Escanear</MudButton>
+            </MudContainer>
+        }
+        else
+        {
+            <MudButton Variant="Variant.Filled" Color="Color.Error" @onclick="HandleCloseClick">Cerrar</MudButton>
+        }
+    </MudContainer>

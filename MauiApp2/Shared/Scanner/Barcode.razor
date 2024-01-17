@@ -1,0 +1,13 @@
+﻿<style>
+    rect {
+        height: inherit;
+    }
+
+    svg{
+        background-color: inherit;
+    }
+</style>
+<MudContainer id="@Id" Class=@($"d-flex flex-column text-center {Class}")>
+    <MudBarcode Width="Width" Height="_height" Clickable=false BarcodeFormat="@BarcodeFormat" StrokeWidth="0" Value="@Value"></MudBarcode>
+    <MudText>@Value</MudText>
+</MudContainer>

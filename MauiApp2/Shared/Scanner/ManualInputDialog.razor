@@ -1,0 +1,35 @@
+﻿<MudDialog>
+    <DialogContent>
+        <MudForm @ref="form">
+            <MudContainer Class="d-flex justify-center">
+                @if (!string.IsNullOrEmpty(Input))
+                {
+                    <Barcode @bind-Value="Input" Width="200" />
+
+                }
+            </MudContainer>
+            <MudTextField @bind-Value="Input" OnlyValidateIfDirty Required
+            Immediate="true" Label="Datos" Style="background-color: white;" Margin=Margin.Dense Variant="Variant.Filled" Clearable="true" />
+        </MudForm>
+    </DialogContent>
+    <DialogActions>
+        <MudButton Color="Color.Error" OnClick="Cancel">Cancelar</MudButton>
+        <MudButton Color="Color.Success" OnClick="Submit">Confirmar</MudButton>
+    </DialogActions>
+</MudDialog>
+@code {
+    [CascadingParameter] MudDialogInstance MudDialog { get; set; } = new MudDialogInstance();
+    [Parameter] public EventCallback<string> OnSubmit { get; set; }
+    private MudForm? form;
+    private string? Input { get; set; }
+
+    private void Cancel() => MudDialog.Cancel();
+    private void Submit()
+    {
+        form.Validate();
+        if (!form.IsValid)
+            return;
+        MudDialog.Close();
+        OnSubmit.InvokeAsync(Input);
+    } 
+}

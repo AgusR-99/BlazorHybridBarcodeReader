@@ -1,0 +1,11 @@
+﻿<MudPaper Width="@Width" Height="@Height" Elevation="0" Class="@($"corner-only-border mx-auto d-flex align-center justify-center {Class}")">
+    @ChildContent
+</MudPaper>
+
+@code{
+    [Parameter] public string Width { get; set; } = "300px";
+    [Parameter] public string Height { get; set; } = "300px";
+    [Parameter] public int Elevation { get; set; } = 0;
+    [Parameter] public string Class { get; set; } = string.Empty;
+    [Parameter] public RenderFragment ChildContent { get; set; }
+}

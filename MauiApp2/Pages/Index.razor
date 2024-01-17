@@ -1,0 +1,11 @@
+﻿@page "/"
+<BarcodeScannerUI OnScanResult="HandleScanResult"/>
+
+@code{
+    [Inject] ISnackbar Snackbar { get; set; } = default!;
+
+private void HandleScanResult(string result)
+    {
+        Snackbar.Add($"Scanned: {result}", Severity.Success);
+    }
+}
