@@ -1,11 +1,73 @@
 ﻿@page "/"
+@using System.Net.Http.Json
+@using System.Net.Http.Headers
+@using Newtonsoft.Json;
+@using System.Text;
+
+
 <BarcodeScannerUI OnScanResult="HandleScanResult"/>
 
 @code{
     [Inject] ISnackbar Snackbar { get; set; } = default!;
 
-private void HandleScanResult(string result)
+    private void HandleScanResult(string result)
     {
         Snackbar.Add($"Scanned: {result}", Severity.Success);
+    }
+    public async Task RecibirCaja(string result)
+    {
+        try
+        {
+
+
+            var httpClient = new HttpClient();
+            var token = await GetTokenAsync("interno@domain.com", "Apsistemas1!");
+
+
+            RecepcionCajaParamDTO recepcionCaja = new RecepcionCajaParamDTO();
+            recepcionCaja.UserId = "4b5f3e0a-d2d1-49e8-8a92-3372545aed5c";
+            recepcionCaja.NroCaja = result;
+
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+            var response = await httpClient.PostAsJsonAsync("http://oliauto.dyndns.info:2091/api/Logistica/RecepcionarCaja", recepcionCaja);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("error");
+            }
+            Console.WriteLine("Exito");
+        }
+        catch (Exception e)
+        {
+            throw new Exception(e.Message);
+        }
+    }
+
+    public async Task<string> GetTokenAsync(string email, string password)
+    {
+        var httpClient = new HttpClient();
+        var request = new HttpRequestMessage(HttpMethod.Post, "http://oliauto.dyndns.info:2091/api/Acceso/Acceso");
+
+        request.Content = new StringContent(JsonConvert.SerializeObject(new { email, password }), Encoding.UTF8, "application/json");
+
+        var response = await httpClient.SendAsync(request);
+
+        if (response.IsSuccessStatusCode)
+        {
+            var responseContent = await response.Content.ReadAsStringAsync();
+            var tokenResponse = JsonConvert.DeserializeObject<TokenResponse>(responseContent);
+            return tokenResponse.AccessToken;
+        }
+        else
+        {
+            throw new Exception("Unable to retrieve access token");
+        }
+    }
+
+    public class TokenResponse
+    {
+        [JsonProperty("access_token")]
+        public string AccessToken { get; set; }
     }
 }
