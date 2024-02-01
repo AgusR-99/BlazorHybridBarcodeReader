@@ -7,6 +7,7 @@
 using bh001_camera_barcode.Data;
 using Microsoft.Extensions.Logging;
 using MudBlazor.Services;
+using OliautoSharedPages;
 
 namespace bh001_camera_barcode
 {
@@ -23,14 +24,13 @@ namespace bh001_camera_barcode
                 });
 
             builder.Services.AddMauiBlazorWebView();
-            builder.Services.AddMudServices();
 
 #if DEBUG
             builder.Services.AddBlazorWebViewDeveloperTools();
 		builder.Logging.AddDebug();
 #endif
 
-            builder.Services.AddSingleton<WeatherForecastService>();
+            builder.Services.AddSharedPagesServices(baseAddress: "http://oliauto.dyndns.info:2091", isMobile: true);
 
             return builder.Build();
         }

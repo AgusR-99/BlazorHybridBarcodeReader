@@ -1,7 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk.Razor">
 
     <PropertyGroup>
-        <TargetFrameworks>net7.0-android;net7.0-ios;net7.0-maccatalyst</TargetFrameworks>
+        <TargetFrameworks>net7.0-android;net7.0-maccatalyst</TargetFrameworks>
         <TargetFrameworks Condition="$([MSBuild]::IsOSPlatform('windows'))">$(TargetFrameworks);net7.0-windows10.0.19041.0</TargetFrameworks>
         <!-- Uncomment to also build the tizen app. You will need to install tizen by following this: https://github.com/Samsung/Tizen.NET -->
         <!-- <TargetFrameworks>$(TargetFrameworks);net7.0-tizen</TargetFrameworks> -->
@@ -36,6 +36,10 @@
       <CodesignProvision>VS: WildCard Development</CodesignProvision>
     </PropertyGroup>
 
+    <PropertyGroup Condition="'$(Configuration)|$(TargetFramework)|$(Platform)'=='Release|net7.0-android|AnyCPU'">
+      <AndroidPackageFormat>apk</AndroidPackageFormat>
+    </PropertyGroup>
+
     <ItemGroup>
         <!-- App Icon -->
         <MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
@@ -61,8 +65,13 @@
         <PackageReference Include="ZXingBlazor" Version="1.*" />
     </ItemGroup>
 
+    <ItemGroup><!--<ProjectReference Include="..\..\BlazorHybrid.Maui.Permissions\BlazorHybrid.Maui.Permissions.csproj" />-->
+    
+      <Folder Include="Pages\" />
+    </ItemGroup>
+
     <ItemGroup>
-      <!--<ProjectReference Include="..\..\BlazorHybrid.Maui.Permissions\BlazorHybrid.Maui.Permissions.csproj" />-->
+      <ProjectReference Include="..\..\OliautoWebAPI\OliautoSharedPages\OliautoSharedPages.csproj" />
     </ItemGroup>
 
 </Project>
