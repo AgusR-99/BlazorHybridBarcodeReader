@@ -3,4 +3,11 @@
 @attribute [Route(PageRoutes.Inicio)]
 @attribute [Authorize]
 <PageTitle>Inicio</PageTitle>
-<h1>Inicio :D</h1>
+<MudContainer Style="height: 70vh">
+    <div class="d-flex flex-column mx-auto justify-center align-start" style="height: inherit; max-width: max-content;">
+        <MudButton Variant="Variant.Outlined" FullWidth StartIcon="fa-solid fa-box" Href="@PageRoutes.RecepcionCajaCerrada">Cajas cerradas</MudButton>
+         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-box-open" Href="@PageRoutes.RecepcionApertura">Apertura</MudButton>
+         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-boxes-packing" Href="@PageRoutes.RecepcionAlocacion">Alocación</MudButton>
+         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-people-carry-box" Href="@PageRoutes.SucursalesPickingControlDespacho">Control de despacho</MudButton>
+     </div>
+</MudContainer>
