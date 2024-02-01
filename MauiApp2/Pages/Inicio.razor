@@ -2,12 +2,18 @@
 @using OliautoSharedPages.Routing
 @attribute [Route(PageRoutes.Inicio)]
 @attribute [Authorize]
+    <style >
+    .mud-button-label .mud-button-icon-start {
+        margin-inline-end: 20px;
+    }
+</style>
+
 <PageTitle>Inicio</PageTitle>
 <MudContainer Style="height: 70vh">
     <div class="d-flex flex-column mx-auto justify-center align-start" style="height: inherit; max-width: max-content;">
-        <MudButton Variant="Variant.Outlined" FullWidth StartIcon="fa-solid fa-box" Href="@PageRoutes.RecepcionCajaCerrada">Cajas cerradas</MudButton>
-         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-box-open" Href="@PageRoutes.RecepcionApertura">Apertura</MudButton>
-         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-boxes-packing" Href="@PageRoutes.RecepcionAlocacion">Alocación</MudButton>
-         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-people-carry-box" Href="@PageRoutes.SucursalesPickingControlDespacho">Control de despacho</MudButton>
+        <MudButton Variant="Variant.Outlined" FullWidth StartIcon="fa-solid fa-box" Href="@PageRoutes.RecepcionCajaCerrada" Style=" border: 2px solid #F58634">Cajas cerradas</MudButton>
+         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-box-open" Href="@PageRoutes.RecepcionApertura"  Style=" border: 2px solid #F58634">Apertura</MudButton>
+         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-boxes-packing" Href="@PageRoutes.RecepcionAlocacion" Style=" border: 2px solid #F58634">Alocación</MudButton>
+         <MudButton Variant="Variant.Outlined" FullWidth Class="mt-4" StartIcon="fa-solid fa-people-carry-box" Href="@PageRoutes.SucursalesPickingControlDespacho" Style=" border: 2px solid #F58634">Control de despacho</MudButton>
      </div>
 </MudContainer>
